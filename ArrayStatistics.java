@@ -1,10 +1,3 @@
-/**
-* Homework# 6
-* Author: Sefiyetu Abdullah
-* Date: 11/18/2020
-* Description: Array Statistics
-*/
-
 import java.util.*;
 import java.lang.*;
 import java.io.*;
