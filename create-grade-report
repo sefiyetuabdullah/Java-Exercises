@@ -1,0 +1,161 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Main
+{
+	public static void main (String[] args) 
+	{
+	  Scanner input = new Scanner(System.in);
+		//initialize array of names with 6 spots
+    String [] names = new String[6];
+    //initialize array of grades with 6 spots
+    int [] grades = new int [6];
+    //initialize variables for student names and student grades
+    String studentName;
+    int studentGrade;
+    //initialize variables to count the names and grade & find the total
+		int count = 1;
+		double total = 0;
+		//variable that will end the loop by user selection
+    final int QUIT = -1;
+    //variable that will end the loop if the number of entries reaches the given number
+		final int MAX = 6;
+
+    //decorative header
+    String header = "-----------------------";
+		
+    //Ask for the name of the first student and save it as studentName
+    System.out.print("Enter name for student " + count + " or [" + QUIT + "] to quit: ");
+    studentName = input.nextLine();
+
+    //if the user does not choose to end the loop, save the student names in their respective array slots based on numbers ( the first name saves in slot 1,etc)
+    //if the number of names entered equals the max number, quit the loop.
+		while(!studentName.equals("-1"))
+		{
+		  names[count] = studentName;
+		  if(count == MAX)
+      break;
+      else
+		  {
+        //if the number does not equal the max number, ask the user for the grade o fthe students and save the grade in the respective array slot based on numbers (the first grade saves in grade slot 1), then increase the count by one and loop.
+		    System.out.print("Enter grade for student " + count + " or [" + QUIT + "] to quit: ");
+		    studentGrade = input.nextInt();
+        grades[count] = studentGrade;
+        ++count;
+        input.nextLine();
+        
+        //if the user enters -1 break the loop
+        if(studentGrade == -1)
+        break;
+        else
+        {
+          //if the user does not enter -1, ask for the next name and continue the loop
+          System.out.print("Enter name for student " + count + " or [" + QUIT + "] to quit: ");
+        studentName = input.nextLine();
+        }
+      }
+		}
+    //call the method to print the values of the names and grades
+    callPrinter(header,grades,names);
+	}
+
+    //this Method prints the final grade report.
+    public static void callPrinter(String header, int [] grades, String [] names)
+    {
+    callHeader(header);
+    callGrades(grades, names);
+    System.out.println();
+    System.out.println(header);
+    System.out.println();
+    callMinimum(grades);
+    callMaximum(grades);
+    callAverage(grades);
+    System.out.println();
+    System.out.println(header);
+    }
+
+  //this method prints the header
+  public static void callHeader(String header)
+  {
+  System.out.println();
+  System.out.println(header);
+  System.out.println();
+  System.out.println("Class Grading Report: ");
+  System.out.println();
+  System.out.println(header);
+  System.out.println();
+  }
+
+  //this method prints the grades as letter grades. If the grades are higher than or equal to 70, but less than or equal to 80, the letter grade is a C (etc))
+    public static void callGrades(int [] grades, String [] names)
+  {
+    for(int i = 1; i<grades.length; i++)
+    {
+    System.out.print(names[i] + " : " );
+    if (grades[i] >= 90)
+    {
+      System.out.print("A\n");
+    } 
+    else if (grades[i] >= 80) 
+    {
+      System.out.print("B\n");
+    } 
+    else if (grades[i] >= 70) 
+    {
+      System.out.print("C\n");
+    } 
+    else if (grades[i] >= 60) 
+    {
+      System.out.print("D\n");
+    } 
+    else if (grades[i] < 60) 
+    {
+      System.out.print("F\n");
+    }
+  }
+  }
+
+//this method prints the minimum grade. It sets the minimum grade as the first grade, and if the next grades are lower than the first one, it resets the minimum grade as that grade.
+  public static void callMinimum(int [] grades)
+  {
+    double minValue = grades[1]; 
+    for(int i=1;i<grades.length;i++)
+    { 
+      if(grades[i] < minValue)
+      { 
+        minValue = grades[i]; 
+      } 
+    } 
+    System.out.print("Minimum: ");
+    System.out.printf("%.1f %n",minValue);
+  }
+
+//this method prints the maximum grade. It sets the maximum grade as the first grade, and if the next grades are higher than the first one, it resets the maximum grade as that grade.
+  public static void callMaximum(int [] grades)
+  {
+    double maxValue = grades[1]; 
+    for(int i=1;i < grades.length;i++)
+    { 
+      if(grades[i] > maxValue)
+      { 
+         maxValue = grades[i]; 
+      } 
+    } 
+    System.out.print("Maximum: ");
+    System.out.printf("%.1f %n",maxValue);
+  }
+
+//this method prints the average grade. it sums the grades and divides the total by the number of values in the array, then prints the average
+  public static void callAverage(int [] grades)
+  {
+    double total = 0;
+    for(int i = 1; i < grades.length; i++) 
+    {
+    total += grades[i];
+    }
+    double avg = total / grades.length;
+    System.out.print("Average: ");
+    System.out.printf("%.1f %n",avg);
+  }
+}
